@@ -9,7 +9,7 @@ peronalizedinfo = PeronalizedInfo()
 
 class AnswerSearcher:
     def __init__(self):
-        self.g = Graph('http://localhost:7474/', auth=("neo4j", "123456"))
+        self.g = Graph('http://localhost:7474/', auth=("neo4j", "jjrneo4j"))
         self.num_limit = 20
         self.notfoods = []
         self.goodfoods = []

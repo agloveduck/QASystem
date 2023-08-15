@@ -13,7 +13,7 @@ app.config.from_object(config)
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
-def addHealthInfo(arg):
+def addHealthInfo(arg):  # 向数据库中添加用户的健康信息 返回一个字典对象作为结果
     content = arg
     print(content)
     username = content['username']
@@ -25,7 +25,7 @@ def addHealthInfo(arg):
     print("diseases :" + diseases)
     DBHOST = "localhost"
     DBUSER = "root"
-    DBPASS = "123456"
+    DBPASS = "jjrmysql"
     DBNAME = "medcine"
     conn = pymysql.connect(host = DBHOST,user = DBUSER,password=DBPASS,database= DBNAME)
     print("数据库连接成功")
@@ -49,7 +49,7 @@ def login(arg):
     loginpwd = content['password']
     DBHOST = "localhost"
     DBUSER = "root"
-    DBPASS = "123456"
+    DBPASS = "jjrmysql"
     DBNAME = "medcine"
     conn = pymysql.connect(host=DBHOST, user=DBUSER, password=DBPASS, database=DBNAME)
     print("数据库连接成功")
@@ -58,16 +58,19 @@ def login(arg):
     cursor = conn.cursor()
     cursor.execute(sql_get)
     results = cursor.fetchall()
+    print("数据库result:")
+    print(results)
     if results.__len__() == 0:
+
         FinalResult = {
             "state": 202,
             "content": "用户名输入错误"
         }
         return FinalResult
     results = results.__getitem__(0)
-    username = results[0]
+    username = results[1]
     print(username)
-    password = results[1]
+    password = results[2]
     FinalResult = {}
     if username == loginname:
         if loginpwd == password:
@@ -77,11 +80,13 @@ def login(arg):
                 "info" : results
             }
         else:
+            print("密码错误的：" + loginpwd)
             FinalResult = {
                 "state" : 201,
                 "content" : "密码错误"
             }
     else:
+
         FinalResult = {
             "state" : 202,
             "content" : "用户名输入错误"
@@ -95,7 +100,7 @@ def register(arg):
     password = content['password']
     DBHOST = "localhost"
     DBUSER = "root"
-    DBPASS = "123456"
+    DBPASS = "jjrmysql"
     DBNAME = "medcine"
     conn = pymysql.connect(host=DBHOST, user=DBUSER, password=DBPASS, database=DBNAME)
     print("数据库连接成功")
@@ -121,7 +126,7 @@ def getUserInfo(arg):
     username = content
     DBHOST = "localhost"
     DBUSER = "root"
-    DBPASS = "123456"
+    DBPASS = "jjrmysql"
     DBNAME = "medcine"
     conn = pymysql.connect(host = DBHOST,user = DBUSER,password=DBPASS,database= DBNAME)
     table = "meduser"
@@ -130,9 +135,9 @@ def getUserInfo(arg):
     cursor = conn.cursor()
     cursor.execute(sql_get)
     results = cursor.fetchall().__getitem__(0)
-    smoke = results[2]
-    alcohol = results[3]
-    disease = results[4]
+    smoke = results[3]
+    alcohol = results[4]
+    disease = results[6]
     if disease is None or '、' not in disease:
         diseases = []
         diseases.append(disease)

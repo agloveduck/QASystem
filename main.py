@@ -14,7 +14,7 @@ import VQA
 import UserServiceImpl
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)  # 关键是这一句设置跨域
+CORS(app,origins=['http://localhost'], supports_credentials=True)  # 关键是这一句设置跨域
 app.config.from_object(config)
 app.config['SESSION_COOKIE_SAMESITE'] = "None"
 app.config['SESSION_COOKIE_SECURE'] = True
@@ -112,6 +112,7 @@ def Register():
 @app.route('/Login',methods=['POST'])
 def Login():
     requestData = request.form.to_dict()
+    # requestData = request.get_json()  # Get JSON data from the request
     print("requestData : ",requestData)
     FinalResult = UserServiceImpl.login(requestData)
     print(FinalResult)
@@ -127,4 +128,4 @@ def Login():
 if __name__ == '__main__':
     from FQA import *
     CORS(app, supports_credentials=True)
-    app.run(host='10.62.44.169', port='5000', debug=True)
+    app.run(host='localhost', port='5000', debug=True)
