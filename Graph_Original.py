@@ -3,7 +3,7 @@ import re
 from flask import Flask, jsonify, render_template
 from py2neo import Graph
 
-graph = Graph('http://localhost:7474',username='neo4j',password='123456') #认证连接数据库
+graph = Graph('http://localhost:7474',username='neo4j',password='jjrneo4j') #认证连接数据库
 app = Flask(__name__) #flask框架必备
 
 def buildPersonNodes(nodeRecord):

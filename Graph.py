@@ -13,7 +13,7 @@ from py2neo import Graph
 from collections import Counter
 print("connecting")
 #graph = Graph('http://localhost:7474',username='neo4j',password='NEO$J') #认证连接数据库
-graph = Graph('http://localhost:7474/', auth=("neo4j", "123456"))
+graph = Graph('http://localhost:7474/', auth=("neo4j", "jjrneo4j"))
 
 NeedNodes = ['华为', '中国', '美国', '中国联通', '中国移动', '爱立信', '中兴', '高通', '诺基亚', '三星', '工信部','AT&T','特朗普','任正非', '上海', '北京', '中国电信']
 def buildeliteNodes(nodeRecord):

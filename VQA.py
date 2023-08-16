@@ -24,7 +24,6 @@ searcher = AnswerSearcher()
 #这个文件拿数据处理问题
 @app.route('/VQA',methods=['POST','GET'])
 def method(arg):
-
     content = arg
     print(content) #问句
     question = content["question"]
@@ -32,7 +31,7 @@ def method(arg):
     res_classify = classifer.classify(question)  # 问题分类匹配
     print("分类匹配：", res_classify)  # 分类匹配
     if not res_classify:
-        answer = "您好，我是智能医学问答助理，很抱歉没有查询到您的问题"
+        return {"answer" : ["您好，我是智能医学问答助理，很抱歉没有查询到您的问题"]}
     else:
         res_sql = parser.parser_main(res_classify)
         print("res_sql:", res_sql)
@@ -66,7 +65,7 @@ def method(arg):
     for allergy in allergys:
         strcontent = "我对"+allergy+"过敏，"+content
         contents.append(strcontent)
-    
+
     answers =[]
     for question in contents:
         res_classify = classifer.classify(question)  # 问题分类匹配
@@ -87,7 +86,7 @@ def method(arg):
                 print("answer:",answer)
     if not answers:
         answers.append("您好，我是智能医学问答助理，很抱歉没有查询到您的问题")
-    
+
     final_answer = ''
     for answer in answers:
         print("f_answer:",answer)
